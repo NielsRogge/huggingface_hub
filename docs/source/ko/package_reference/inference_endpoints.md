@@ -23,7 +23,67 @@ Hugging Face가 관리하는 추론 엔드포인트는 우리가 모델을 쉽�
 
 기본 데이터 클래스는 [`InferenceEndpoint`]입니다. 여기에는 구성 및 현재 상태를 가지고 있는 배포된 `InferenceEndpoint`에 대한 정보가 포함되어 있습니다. 배포 후에는 [`InferenceEndpoint.client`]와 [`InferenceEndpoint.async_client`]를 사용해 엔드포인트에서 추론 작업을 할 수 있고, 이때 [`InferenceClient`]와 [`AsyncInferenceClient`] 객체를 반환합니다.
 
-[[autodoc]] InferenceEndpoint
+### InferenceEndpoint
+
+```python
+Contains information about a deployed Inference Endpoint.
+
+Args:
+    name (`str`):
+        The unique name of the Inference Endpoint.
+    namespace (`str`):
+        The namespace where the Inference Endpoint is located.
+    repository (`str`):
+        The name of the model repository deployed on this Inference Endpoint.
+    status ([`InferenceEndpointStatus`]):
+        The current status of the Inference Endpoint.
+    url (`str`, *optional*):
+        The URL of the Inference Endpoint, if available. Only a deployed Inference Endpoint will have a URL.
+    framework (`str`):
+        The machine learning framework used for the model.
+    revision (`str`):
+        The specific model revision deployed on the Inference Endpoint.
+    task (`str`):
+        The task associated with the deployed model.
+    created_at (`datetime.datetime`):
+        The timestamp when the Inference Endpoint was created.
+    updated_at (`datetime.datetime`):
+        The timestamp of the last update of the Inference Endpoint.
+    type ([`InferenceEndpointType`]):
+        The type of the Inference Endpoint (public, protected, private).
+    raw (`Dict`):
+        The raw dictionary data returned from the API.
+    token (`str` or `bool`, *optional*):
+        Authentication token for the Inference Endpoint, if set when requesting the API. Will default to the
+        locally saved token if not provided. Pass `token=False` if you don't want to send your token to the server.
+
+Example:
+    ```python
+    >>> from huggingface_hub import get_inference_endpoint
+    >>> endpoint = get_inference_endpoint("my-text-to-image")
+    >>> endpoint
+    InferenceEndpoint(name='my-text-to-image', ...)
+
+    # Get status
+    >>> endpoint.status
+    'running'
+    >>> endpoint.url
+    'https://my-text-to-image.region.vendor.endpoints.huggingface.cloud'
+
+    # Run inference
+    >>> endpoint.client.text_to_image(...)
+
+    # Pause endpoint to save $$$
+    >>> endpoint.pause()
+
+    # ...
+    # Resume and wait for deployment
+    >>> endpoint.resume()
+    >>> endpoint.wait()
+    >>> endpoint.client.text_to_image(...)
+    ```
+```
+
   - from_raw
   - client
   - async_client
@@ -31,12 +91,27 @@ Hugging Face가 관리하는 추론 엔드포인트는 우리가 모델을 쉽�
 
 ## InferenceEndpointStatus [[huggingface_hub.InferenceEndpointStatus]]
 
-[[autodoc]] InferenceEndpointStatus
+### InferenceEndpointStatus
+
+```python
+An enumeration.
+```
+
 
 ## InferenceEndpointType [[huggingface_hub.InferenceEndpointType]]
 
-[[autodoc]] InferenceEndpointType
+### InferenceEndpointType
+
+```python
+An enumeration.
+```
+
 
 ## InferenceEndpointError [[huggingface_hub.InferenceEndpointError]]
 
-[[autodoc]] InferenceEndpointError
+### InferenceEndpointError
+
+```python
+Generic exception when dealing with Inference Endpoints.
+```
+

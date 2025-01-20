@@ -33,20 +33,47 @@ logging.set_verbosity(...)
 - `info`: 하부에서 무슨 일이 일어나고 있는지에 대한 자세한 로그를 포함하여 대부분의 로그를 표시합니다. 무언가 예상치 못한 방식으로 동작하는 경우, 더 많은 정보를 얻기 위해 verbosity 단계로 전환하는 것이 좋습니다.
 - `debug`: 하부에서 정확히 무슨 일이 일어나고 있는지를 추적하는 데 사용될 수 있는 일부 내부 로그를 포함하여 모든 로그를 표시합니다.
 
-[[autodoc]] logging.get_verbosity
-[[autodoc]] logging.set_verbosity
-[[autodoc]] logging.set_verbosity_info
-[[autodoc]] logging.set_verbosity_debug
-[[autodoc]] logging.set_verbosity_warning
-[[autodoc]] logging.set_verbosity_error
-[[autodoc]] logging.disable_propagation
-[[autodoc]] logging.enable_propagation
+### logging.get_verbosity
+
+Error fetching docstring for logging.get_verbosity: module 'logging' has no attribute 'get_verbosity'
+
+### logging.set_verbosity
+
+Error fetching docstring for logging.set_verbosity: module 'logging' has no attribute 'set_verbosity'
+
+### logging.set_verbosity_info
+
+Error fetching docstring for logging.set_verbosity_info: module 'logging' has no attribute 'set_verbosity_info'
+
+### logging.set_verbosity_debug
+
+Error fetching docstring for logging.set_verbosity_debug: module 'logging' has no attribute 'set_verbosity_debug'
+
+### logging.set_verbosity_warning
+
+Error fetching docstring for logging.set_verbosity_warning: module 'logging' has no attribute 'set_verbosity_warning'
+
+### logging.set_verbosity_error
+
+Error fetching docstring for logging.set_verbosity_error: module 'logging' has no attribute 'set_verbosity_error'
+
+### logging.disable_propagation
+
+Error fetching docstring for logging.disable_propagation: module 'logging' has no attribute 'disable_propagation'
+
+### logging.enable_propagation
+
+Error fetching docstring for logging.enable_propagation: module 'logging' has no attribute 'enable_propagation'
+
 
 ### 리포지토리별 도우미 메소드[[huggingface_hub.utils.logging.get_logger]]
 
 아래 제공된 메소드들은 `huggingface_hub` 라이브러리 모듈을 수정할 때 관련이 있습니다. `huggingface_hub`를 사용하고 해당 모듈을 수정하지 않는 경우에는 사용할 필요가 없습니다.
 
-[[autodoc]] logging.get_logger
+### logging.get_logger
+
+Error fetching docstring for logging.get_logger: module 'logging' has no attribute 'get_logger'
+
 
 ## 프로그레스 바 구성하기[[configure-progress-bars]]
 
@@ -74,15 +101,65 @@ True
 
 ### are_progress_bars_disabled[[huggingface_hub.utils.are_progress_bars_disabled]]
 
-[[autodoc]] huggingface_hub.utils.are_progress_bars_disabled
+### huggingface_hub.utils.are_progress_bars_disabled
+
+```python
+Check if progress bars are disabled globally or for a specific group.
+
+This function returns whether progress bars are disabled for a given group or globally.
+It checks the `HF_HUB_DISABLE_PROGRESS_BARS` environment variable first, then the programmatic
+settings.
+
+Args:
+    name (`str`, *optional*):
+        The group name to check; if None, checks the global setting.
+
+Returns:
+    `bool`: True if progress bars are disabled, False otherwise.
+```
+
 
 ### disable_progress_bars[[huggingface_hub.utils.disable_progress_bars]]
 
-[[autodoc]] huggingface_hub.utils.disable_progress_bars
+### huggingface_hub.utils.disable_progress_bars
+
+```python
+Disable progress bars either globally or for a specified group.
+
+This function updates the state of progress bars based on a group name.
+If no group name is provided, all progress bars are disabled. The operation
+respects the `HF_HUB_DISABLE_PROGRESS_BARS` environment variable's setting.
+
+Args:
+    name (`str`, *optional*):
+        The name of the group for which to disable the progress bars. If None,
+        progress bars are disabled globally.
+
+Raises:
+    Warning: If the environment variable precludes changes.
+```
+
 
 ### enable_progress_bars[huggingface_hub.utils.enable_progress_bars]]
 
-[[autodoc]] huggingface_hub.utils.enable_progress_bars
+### huggingface_hub.utils.enable_progress_bars
+
+```python
+Enable progress bars either globally or for a specified group.
+
+This function sets the progress bars to enabled for the specified group or globally
+if no group is specified. The operation is subject to the `HF_HUB_DISABLE_PROGRESS_BARS`
+environment setting.
+
+Args:
+    name (`str`, *optional*):
+        The name of the group for which to enable the progress bars. If None,
+        progress bars are enabled globally.
+
+Raises:
+    Warning: If the environment variable precludes changes.
+```
+
 
 ## HTTP 백엔드 구성[[huggingface_hub.configure_http_backend]]
 
@@ -90,9 +167,71 @@ True
 
 `requests.Session`이 스레드 안전을 보장하지 않기 때문에 `huggingface_hub`는 스레드당 하나의 세션 인스턴스를 생성합니다. 세션을 사용하면 HTTP 호출 사이에 연결을 유지하고 최종적으로 시간을 절약할 수 있습니다. `huggingface_hub`를 서드 파티 라이브러리에 통합하고 사용자 지정 호출을 Hub로 만들려는 경우, [`get_session`]을 사용하여 사용자가 구성한 세션을 가져옵니다 (즉, 모든 `requests.get(...)` 호출을 `get_session().get(...)`으로 대체합니다).
 
-[[autodoc]] configure_http_backend
+### configure_http_backend
 
-[[autodoc]] get_session
+```python
+Configure the HTTP backend by providing a `backend_factory`. Any HTTP calls made by `huggingface_hub` will use a
+Session object instantiated by this factory. This can be useful if you are running your scripts in a specific
+environment requiring custom configuration (e.g. custom proxy or certifications).
+
+Use [`get_session`] to get a configured Session. Since `requests.Session` is not guaranteed to be thread-safe,
+`huggingface_hub` creates 1 Session instance per thread. They are all instantiated using the same `backend_factory`
+set in [`configure_http_backend`]. A LRU cache is used to cache the created sessions (and connections) between
+calls. Max size is 128 to avoid memory leaks if thousands of threads are spawned.
+
+See [this issue](https://github.com/psf/requests/issues/2766) to know more about thread-safety in `requests`.
+
+Example:
+```py
+import requests
+from huggingface_hub import configure_http_backend, get_session
+
+# Create a factory function that returns a Session with configured proxies
+def backend_factory() -> requests.Session:
+    session = requests.Session()
+    session.proxies = {"http": "http://10.10.1.10:3128", "https": "https://10.10.1.11:1080"}
+    return session
+
+# Set it as the default session factory
+configure_http_backend(backend_factory=backend_factory)
+
+# In practice, this is mostly done internally in `huggingface_hub`
+session = get_session()
+```
+```
+
+
+### get_session
+
+```python
+Get a `requests.Session` object, using the session factory from the user.
+
+Use [`get_session`] to get a configured Session. Since `requests.Session` is not guaranteed to be thread-safe,
+`huggingface_hub` creates 1 Session instance per thread. They are all instantiated using the same `backend_factory`
+set in [`configure_http_backend`]. A LRU cache is used to cache the created sessions (and connections) between
+calls. Max size is 128 to avoid memory leaks if thousands of threads are spawned.
+
+See [this issue](https://github.com/psf/requests/issues/2766) to know more about thread-safety in `requests`.
+
+Example:
+```py
+import requests
+from huggingface_hub import configure_http_backend, get_session
+
+# Create a factory function that returns a Session with configured proxies
+def backend_factory() -> requests.Session:
+    session = requests.Session()
+    session.proxies = {"http": "http://10.10.1.10:3128", "https": "https://10.10.1.11:1080"}
+    return session
+
+# Set it as the default session factory
+configure_http_backend(backend_factory=backend_factory)
+
+# In practice, this is mostly done internally in `huggingface_hub`
+session = get_session()
+```
+```
+
 
 
 ## HTTP 오류 다루기[[handle-http-errors]]
@@ -119,7 +258,66 @@ except HfHubHTTPError as e:
     raise
 ```
 
-[[autodoc]] huggingface_hub.utils.hf_raise_for_status
+### huggingface_hub.utils.hf_raise_for_status
+
+```python
+    Internal version of `response.raise_for_status()` that will refine a
+    potential HTTPError. Raised exception will be an instance of `HfHubHTTPError`.
+
+    This helper is meant to be the unique method to raise_for_status when making a call
+    to the Hugging Face Hub.
+
+
+    Example:
+    ```py
+        import requests
+        from huggingface_hub.utils import get_session, hf_raise_for_status, HfHubHTTPError
+
+        response = get_session().post(...)
+        try:
+            hf_raise_for_status(response)
+        except HfHubHTTPError as e:
+            print(str(e)) # formatted message
+            e.request_id, e.server_message # details returned by server
+
+            # Complete the error message with additional information once it's raised
+            e.append_to_message("
+`create_commit` expects the repository to exist.")
+            raise
+    ```
+
+    Args:
+        response (`Response`):
+            Response from the server.
+        endpoint_name (`str`, *optional*):
+            Name of the endpoint that has been called. If provided, the error message
+            will be more complete.
+
+    <Tip warning={true}>
+
+    Raises when the request has failed:
+
+        - [`~utils.RepositoryNotFoundError`]
+            If the repository to download from cannot be found. This may be because it
+            doesn't exist, because `repo_type` is not set correctly, or because the repo
+            is `private` and you do not have access.
+        - [`~utils.GatedRepoError`]
+            If the repository exists but is gated and the user is not on the authorized
+            list.
+        - [`~utils.RevisionNotFoundError`]
+            If the repository exists but the revision couldn't be find.
+        - [`~utils.EntryNotFoundError`]
+            If the repository exists but the entry (e.g. the requested file) couldn't be
+            find.
+        - [`~utils.BadRequestError`]
+            If request failed with a HTTP 400 BadRequest error.
+        - [`~utils.HfHubHTTPError`]
+            If request failed for a reason not listed above.
+
+    </Tip>
+    
+```
+
 
 ### HTTP 오류[[http-errors]]
 
@@ -129,35 +327,179 @@ except HfHubHTTPError as e:
 
 `HfHubHTTPError`는 HF Hub HTTP 오류에 대한 부모 클래스입니다. 이 클래스는 서버 응답을 구문 분석하고 오류 메시지를 형식화하여 사용자에게 가능한 많은 정보를 제공합니다.
 
-[[autodoc]] huggingface_hub.utils.HfHubHTTPError
+### huggingface_hub.utils.HfHubHTTPError
+
+```python
+    HTTPError to inherit from for any custom HTTP Error raised in HF Hub.
+
+    Any HTTPError is converted at least into a `HfHubHTTPError`. If some information is
+    sent back by the server, it will be added to the error message.
+
+    Added details:
+    - Request id from "X-Request-Id" header if exists. If not, fallback to "X-Amzn-Trace-Id" header if exists.
+    - Server error message from the header "X-Error-Message".
+    - Server error message if we can found one in the response body.
+
+    Example:
+    ```py
+        import requests
+        from huggingface_hub.utils import get_session, hf_raise_for_status, HfHubHTTPError
+
+        response = get_session().post(...)
+        try:
+            hf_raise_for_status(response)
+        except HfHubHTTPError as e:
+            print(str(e)) # formatted message
+            e.request_id, e.server_message # details returned by server
+
+            # Complete the error message with additional information once it's raised
+            e.append_to_message("
+`create_commit` expects the repository to exist.")
+            raise
+    ```
+    
+```
+
 
 #### RepositoryNotFoundError[[huggingface_hub.utils.RepositoryNotFoundError]]
 
-[[autodoc]] huggingface_hub.utils.RepositoryNotFoundError
+### huggingface_hub.utils.RepositoryNotFoundError
+
+```python
+Raised when trying to access a hf.co URL with an invalid repository name, or
+with a private repo name the user does not have access to.
+
+Example:
+
+```py
+>>> from huggingface_hub import model_info
+>>> model_info("<non_existent_repository>")
+(...)
+huggingface_hub.utils._errors.RepositoryNotFoundError: 401 Client Error. (Request ID: PvMw_VjBMjVdMz53WKIzP)
+
+Repository Not Found for url: https://huggingface.co/api/models/%3Cnon_existent_repository%3E.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If the repo is private, make sure you are authenticated.
+Invalid username or password.
+```
+```
+
 
 #### GatedRepoError[[huggingface_hub.utils.GatedRepoError]]
 
-[[autodoc]] huggingface_hub.utils.GatedRepoError
+### huggingface_hub.utils.GatedRepoError
+
+```python
+Raised when trying to access a gated repository for which the user is not on the
+authorized list.
+
+Note: derives from `RepositoryNotFoundError` to ensure backward compatibility.
+
+Example:
+
+```py
+>>> from huggingface_hub import model_info
+>>> model_info("<gated_repository>")
+(...)
+huggingface_hub.utils._errors.GatedRepoError: 403 Client Error. (Request ID: ViT1Bf7O_026LGSQuVqfa)
+
+Cannot access gated repo for url https://huggingface.co/api/models/ardent-figment/gated-model.
+Access to model ardent-figment/gated-model is restricted and you are not in the authorized list.
+Visit https://huggingface.co/ardent-figment/gated-model to ask for access.
+```
+```
+
 
 #### RevisionNotFoundError[[huggingface_hub.utils.RevisionNotFoundError]]
 
-[[autodoc]] huggingface_hub.utils.RevisionNotFoundError
+### huggingface_hub.utils.RevisionNotFoundError
+
+```python
+Raised when trying to access a hf.co URL with a valid repository but an invalid
+revision.
+
+Example:
+
+```py
+>>> from huggingface_hub import hf_hub_download
+>>> hf_hub_download('bert-base-cased', 'config.json', revision='<non-existent-revision>')
+(...)
+huggingface_hub.utils._errors.RevisionNotFoundError: 404 Client Error. (Request ID: Mwhe_c3Kt650GcdKEFomX)
+
+Revision Not Found for url: https://huggingface.co/bert-base-cased/resolve/%3Cnon-existent-revision%3E/config.json.
+```
+```
+
 
 #### EntryNotFoundError[[huggingface_hub.utils.EntryNotFoundError]]
 
-[[autodoc]] huggingface_hub.utils.EntryNotFoundError
+### huggingface_hub.utils.EntryNotFoundError
+
+```python
+Raised when trying to access a hf.co URL with a valid repository and revision
+but an invalid filename.
+
+Example:
+
+```py
+>>> from huggingface_hub import hf_hub_download
+>>> hf_hub_download('bert-base-cased', '<non-existent-file>')
+(...)
+huggingface_hub.utils._errors.EntryNotFoundError: 404 Client Error. (Request ID: 53pNl6M0MxsnG5Sw8JA6x)
+
+Entry Not Found for url: https://huggingface.co/bert-base-cased/resolve/main/%3Cnon-existent-file%3E.
+```
+```
+
 
 #### BadRequestError[[huggingface_hub.utils.BadRequestError]]
 
-[[autodoc]] huggingface_hub.utils.BadRequestError
+### huggingface_hub.utils.BadRequestError
+
+```python
+Raised by `hf_raise_for_status` when the server returns a HTTP 400 error.
+
+Example:
+
+```py
+>>> resp = requests.post("hf.co/api/check", ...)
+>>> hf_raise_for_status(resp, endpoint_name="check")
+huggingface_hub.utils._errors.BadRequestError: Bad request for check endpoint: {details} (Request ID: XXX)
+```
+```
+
 
 #### LocalEntryNotFoundError[[huggingface_hub.utils.LocalEntryNotFoundError]]
 
-[[autodoc]] huggingface_hub.utils.LocalEntryNotFoundError
+### huggingface_hub.utils.LocalEntryNotFoundError
+
+```python
+Raised when trying to access a file or snapshot that is not on the disk when network is
+disabled or unavailable (connection issue). The entry may exist on the Hub.
+
+Note: `ValueError` type is to ensure backward compatibility.
+Note: `LocalEntryNotFoundError` derives from `HTTPError` because of `EntryNotFoundError`
+      even when it is not a network issue.
+
+Example:
+
+```py
+>>> from huggingface_hub import hf_hub_download
+>>> hf_hub_download('bert-base-cased', '<non-cached-file>',  local_files_only=True)
+(...)
+huggingface_hub.utils._errors.LocalEntryNotFoundError: Cannot find the requested files in the disk cache and outgoing traffic has been disabled. To enable hf.co look-ups and downloads online, set 'local_files_only' to False.
+```
+```
+
 
 #### OfflineModeIsEnabledd[[huggingface_hub.utils.OfflineModeIsEnabled]]
 
-[[autodoc]] huggingface_hub.utils.OfflineModeIsEnabled
+### huggingface_hub.utils.OfflineModeIsEnabled
+
+```python
+Raised when a request is made but `HF_HUB_OFFLINE=1` is set as environment variable.
+```
+
 
 ## 원격 측정[[huggingface_hub.utils.send_telemetry]]
 
@@ -165,7 +507,10 @@ except HfHubHTTPError as e:
 
 서드 파티 라이브러리의 유지 관리자인 경우, 원격 측정 데이터를 보내는 것은 [`send_telemetry`]를 호출하는 것만큼 간단합니다. 사용자에게 가능한 영향을 최소화하기 위해 데이터는 별도의 스레드에서 전송됩니다.
 
-[[autodoc]] utils.send_telemetry
+### utils.send_telemetry
+
+Error fetching docstring for utils.send_telemetry: module 'utils' has no attribute 'send_telemetry'
+
 
 
 ## 검증기[[validators]]
@@ -213,11 +558,17 @@ UserWarning: Both `token` and `use_auth_token` are passed (...). `use_auth_token
 
 #### validate_hf_hub_args[[huggingface_hub.utils.validate_hf_hub_args]]
 
-[[autodoc]] utils.validate_hf_hub_args
+### utils.validate_hf_hub_args
+
+Error fetching docstring for utils.validate_hf_hub_args: module 'utils' has no attribute 'validate_hf_hub_args'
+
 
 #### HFValidationError[[huggingface_hub.utils.HFValidationError]]
 
-[[autodoc]] utils.HFValidationError
+### utils.HFValidationError
+
+Error fetching docstring for utils.HFValidationError: module 'utils' has no attribute 'HFValidationError'
+
 
 ### Argument validators[[argument-validators]]
 
@@ -225,10 +576,16 @@ UserWarning: Both `token` and `use_auth_token` are passed (...). `use_auth_token
 
 #### repo_id[[huggingface_hub.utils.validate_repo_id]]
 
-[[autodoc]] utils.validate_repo_id
+### utils.validate_repo_id
+
+Error fetching docstring for utils.validate_repo_id: module 'utils' has no attribute 'validate_repo_id'
+
 
 #### smoothly_deprecate_use_auth_token[[huggingface_hub.utils.smoothly_deprecate_use_auth_token]]
 
 정확히 검증기는 아니지만, 잘 실행됩니다.
 
-[[autodoc]] utils.smoothly_deprecate_use_auth_token
+### utils.smoothly_deprecate_use_auth_token
+
+Error fetching docstring for utils.smoothly_deprecate_use_auth_token: module 'utils' has no attribute 'smoothly_deprecate_use_auth_token'
+

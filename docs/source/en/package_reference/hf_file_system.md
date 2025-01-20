@@ -10,6 +10,9 @@ The `HfFileSystem` class provides a pythonic file interface to the Hugging Face 
 
 `HfFileSystem` is based on [fsspec](https://filesystem-spec.readthedocs.io/en/latest/), so it is compatible with most of the APIs that it offers. For more details, check out [our guide](../guides/hf_file_system) and fsspec's [API Reference](https://filesystem-spec.readthedocs.io/en/latest/api.html#fsspec.spec.AbstractFileSystem).
 
-[[autodoc]] HfFileSystem 
+### HfFileSystem 
+
+Error fetching docstring for huggingface_hub.HfFileSystem : No huggingface_hub attribute HfFileSystem 
+
     - __init__
     - all

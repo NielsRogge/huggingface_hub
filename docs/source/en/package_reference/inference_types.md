@@ -19,380 +19,1061 @@ This part of the lib is still under development and will be improved in future r
 
 ## audio_classification
 
-[[autodoc]] huggingface_hub.AudioClassificationInput
+### huggingface_hub.AudioClassificationInput
 
-[[autodoc]] huggingface_hub.AudioClassificationOutputElement
+```python
+Inputs for Audio Classification inference
+```
 
-[[autodoc]] huggingface_hub.AudioClassificationParameters
+
+### huggingface_hub.AudioClassificationOutputElement
+
+```python
+Outputs for Audio Classification inference
+```
+
+
+### huggingface_hub.AudioClassificationParameters
+
+```python
+Additional inference parameters for Audio Classification
+```
+
 
 
 
 ## audio_to_audio
 
-[[autodoc]] huggingface_hub.AudioToAudioInput
+### huggingface_hub.AudioToAudioInput
 
-[[autodoc]] huggingface_hub.AudioToAudioOutputElement
+```python
+Inputs for Audio to Audio inference
+```
+
+
+### huggingface_hub.AudioToAudioOutputElement
+
+```python
+Outputs of inference for the Audio To Audio task
+A generated audio file with its label.
+```
+
 
 
 
 ## automatic_speech_recognition
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionGenerationParameters
+### huggingface_hub.AutomaticSpeechRecognitionGenerationParameters
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionInput
+```python
+Parametrization of the text generation process
+```
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionOutput
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionOutputChunk
+### huggingface_hub.AutomaticSpeechRecognitionInput
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionParameters
+```python
+Inputs for Automatic Speech Recognition inference
+```
+
+
+### huggingface_hub.AutomaticSpeechRecognitionOutput
+
+```python
+Outputs of inference for the Automatic Speech Recognition task
+```
+
+
+### huggingface_hub.AutomaticSpeechRecognitionOutputChunk
+
+```python
+AutomaticSpeechRecognitionOutputChunk(text: str, timestamps: List[float])
+```
+
+
+### huggingface_hub.AutomaticSpeechRecognitionParameters
+
+```python
+Additional inference parameters for Automatic Speech Recognition
+```
+
 
 
 
 ## chat_completion
 
-[[autodoc]] huggingface_hub.ChatCompletionInput
+### huggingface_hub.ChatCompletionInput
 
-[[autodoc]] huggingface_hub.ChatCompletionInputFunctionDefinition
+```python
+Chat Completion Input.
+Auto-generated from TGI specs.
+For more details, check out
+https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/scripts/inference-tgi-import.ts.
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionInputFunctionName
 
-[[autodoc]] huggingface_hub.ChatCompletionInputGrammarType
+### huggingface_hub.ChatCompletionInputFunctionDefinition
 
-[[autodoc]] huggingface_hub.ChatCompletionInputMessage
+```python
+ChatCompletionInputFunctionDefinition(arguments: Any, name: str, description: Optional[str] = None)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionInputMessageChunk
 
-[[autodoc]] huggingface_hub.ChatCompletionInputStreamOptions
+### huggingface_hub.ChatCompletionInputFunctionName
 
-[[autodoc]] huggingface_hub.ChatCompletionInputTool
+```python
+ChatCompletionInputFunctionName(name: str)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionInputToolChoiceClass
 
-[[autodoc]] huggingface_hub.ChatCompletionInputURL
+### huggingface_hub.ChatCompletionInputGrammarType
 
-[[autodoc]] huggingface_hub.ChatCompletionOutput
+```python
+ChatCompletionInputGrammarType(type: 'ChatCompletionInputGrammarTypeType', value: Any)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputComplete
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputFunctionDefinition
+### huggingface_hub.ChatCompletionInputMessage
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputLogprob
+```python
+ChatCompletionInputMessage(content: Union[List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessageChunk], str], role: str, name: Optional[str] = None)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputLogprobs
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputMessage
+### huggingface_hub.ChatCompletionInputMessageChunk
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputToolCall
+```python
+ChatCompletionInputMessageChunk(type: 'ChatCompletionInputMessageChunkType', image_url: Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputURL] = None, text: Optional[str] = None)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputTopLogprob
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputUsage
+### huggingface_hub.ChatCompletionInputStreamOptions
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutput
+```python
+ChatCompletionInputStreamOptions(include_usage: bool)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputChoice
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputDelta
+### huggingface_hub.ChatCompletionInputTool
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputDeltaToolCall
+```python
+ChatCompletionInputTool(function: huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputFunctionDefinition, type: str)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputFunction
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputLogprob
+### huggingface_hub.ChatCompletionInputToolChoiceClass
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputLogprobs
+```python
+ChatCompletionInputToolChoiceClass(function: huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputFunctionName)
+```
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputTopLogprob
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputUsage
+### huggingface_hub.ChatCompletionInputURL
+
+```python
+ChatCompletionInputURL(url: str)
+```
+
+
+### huggingface_hub.ChatCompletionOutput
+
+```python
+Chat Completion Output.
+Auto-generated from TGI specs.
+For more details, check out
+https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/scripts/inference-tgi-import.ts.
+```
+
+
+### huggingface_hub.ChatCompletionOutputComplete
+
+```python
+ChatCompletionOutputComplete(finish_reason: str, index: int, message: huggingface_hub.inference._generated.types.chat_completion.ChatCompletionOutputMessage, logprobs: Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionOutputLogprobs] = None)
+```
+
+
+### huggingface_hub.ChatCompletionOutputFunctionDefinition
+
+```python
+ChatCompletionOutputFunctionDefinition(arguments: Any, name: str, description: Optional[str] = None)
+```
+
+
+### huggingface_hub.ChatCompletionOutputLogprob
+
+```python
+ChatCompletionOutputLogprob(logprob: float, token: str, top_logprobs: List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionOutputTopLogprob])
+```
+
+
+### huggingface_hub.ChatCompletionOutputLogprobs
+
+```python
+ChatCompletionOutputLogprobs(content: List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionOutputLogprob])
+```
+
+
+### huggingface_hub.ChatCompletionOutputMessage
+
+```python
+ChatCompletionOutputMessage(role: str, content: Optional[str] = None, tool_calls: Optional[List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionOutputToolCall]] = None)
+```
+
+
+### huggingface_hub.ChatCompletionOutputToolCall
+
+```python
+ChatCompletionOutputToolCall(function: huggingface_hub.inference._generated.types.chat_completion.ChatCompletionOutputFunctionDefinition, id: str, type: str)
+```
+
+
+### huggingface_hub.ChatCompletionOutputTopLogprob
+
+```python
+ChatCompletionOutputTopLogprob(logprob: float, token: str)
+```
+
+
+### huggingface_hub.ChatCompletionOutputUsage
+
+```python
+ChatCompletionOutputUsage(completion_tokens: int, prompt_tokens: int, total_tokens: int)
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutput
+
+```python
+Chat Completion Stream Output.
+Auto-generated from TGI specs.
+For more details, check out
+https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/scripts/inference-tgi-import.ts.
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputChoice
+
+```python
+ChatCompletionStreamOutputChoice(delta: huggingface_hub.inference._generated.types.chat_completion.ChatCompletionStreamOutputDelta, index: int, finish_reason: Optional[str] = None, logprobs: Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionStreamOutputLogprobs] = None)
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputDelta
+
+```python
+ChatCompletionStreamOutputDelta(role: str, content: Optional[str] = None, tool_calls: Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionStreamOutputDeltaToolCall] = None)
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputDeltaToolCall
+
+```python
+ChatCompletionStreamOutputDeltaToolCall(function: huggingface_hub.inference._generated.types.chat_completion.ChatCompletionStreamOutputFunction, id: str, index: int, type: str)
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputFunction
+
+```python
+ChatCompletionStreamOutputFunction(arguments: str, name: Optional[str] = None)
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputLogprob
+
+```python
+ChatCompletionStreamOutputLogprob(logprob: float, token: str, top_logprobs: List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionStreamOutputTopLogprob])
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputLogprobs
+
+```python
+ChatCompletionStreamOutputLogprobs(content: List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionStreamOutputLogprob])
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputTopLogprob
+
+```python
+ChatCompletionStreamOutputTopLogprob(logprob: float, token: str)
+```
+
+
+### huggingface_hub.ChatCompletionStreamOutputUsage
+
+```python
+ChatCompletionStreamOutputUsage(completion_tokens: int, prompt_tokens: int, total_tokens: int)
+```
+
 
 
 
 ## depth_estimation
 
-[[autodoc]] huggingface_hub.DepthEstimationInput
+### huggingface_hub.DepthEstimationInput
 
-[[autodoc]] huggingface_hub.DepthEstimationOutput
+```python
+Inputs for Depth Estimation inference
+```
+
+
+### huggingface_hub.DepthEstimationOutput
+
+```python
+Outputs of inference for the Depth Estimation task
+```
+
 
 
 
 ## document_question_answering
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringInput
+### huggingface_hub.DocumentQuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringInputData
+```python
+Inputs for Document Question Answering inference
+```
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringOutputElement
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringParameters
+### huggingface_hub.DocumentQuestionAnsweringInputData
+
+```python
+One (document, question) pair to answer
+```
+
+
+### huggingface_hub.DocumentQuestionAnsweringOutputElement
+
+```python
+Outputs of inference for the Document Question Answering task
+```
+
+
+### huggingface_hub.DocumentQuestionAnsweringParameters
+
+```python
+Additional inference parameters for Document Question Answering
+```
+
 
 
 
 ## feature_extraction
 
-[[autodoc]] huggingface_hub.FeatureExtractionInput
+### huggingface_hub.FeatureExtractionInput
+
+```python
+Feature Extraction Input.
+Auto-generated from TEI specs.
+For more details, check out
+https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/scripts/inference-tei-import.ts.
+```
+
 
 
 
 ## fill_mask
 
-[[autodoc]] huggingface_hub.FillMaskInput
+### huggingface_hub.FillMaskInput
 
-[[autodoc]] huggingface_hub.FillMaskOutputElement
+```python
+Inputs for Fill Mask inference
+```
 
-[[autodoc]] huggingface_hub.FillMaskParameters
+
+### huggingface_hub.FillMaskOutputElement
+
+```python
+Outputs of inference for the Fill Mask task
+```
+
+
+### huggingface_hub.FillMaskParameters
+
+```python
+Additional inference parameters for Fill Mask
+```
+
 
 
 
 ## image_classification
 
-[[autodoc]] huggingface_hub.ImageClassificationInput
+### huggingface_hub.ImageClassificationInput
 
-[[autodoc]] huggingface_hub.ImageClassificationOutputElement
+```python
+Inputs for Image Classification inference
+```
 
-[[autodoc]] huggingface_hub.ImageClassificationParameters
+
+### huggingface_hub.ImageClassificationOutputElement
+
+```python
+Outputs of inference for the Image Classification task
+```
+
+
+### huggingface_hub.ImageClassificationParameters
+
+```python
+Additional inference parameters for Image Classification
+```
+
 
 
 
 ## image_segmentation
 
-[[autodoc]] huggingface_hub.ImageSegmentationInput
+### huggingface_hub.ImageSegmentationInput
 
-[[autodoc]] huggingface_hub.ImageSegmentationOutputElement
+```python
+Inputs for Image Segmentation inference
+```
 
-[[autodoc]] huggingface_hub.ImageSegmentationParameters
+
+### huggingface_hub.ImageSegmentationOutputElement
+
+```python
+Outputs of inference for the Image Segmentation task
+A predicted mask / segment
+```
+
+
+### huggingface_hub.ImageSegmentationParameters
+
+```python
+Additional inference parameters for Image Segmentation
+```
+
 
 
 
 ## image_to_image
 
-[[autodoc]] huggingface_hub.ImageToImageInput
+### huggingface_hub.ImageToImageInput
 
-[[autodoc]] huggingface_hub.ImageToImageOutput
+```python
+Inputs for Image To Image inference
+```
 
-[[autodoc]] huggingface_hub.ImageToImageParameters
 
-[[autodoc]] huggingface_hub.ImageToImageTargetSize
+### huggingface_hub.ImageToImageOutput
+
+```python
+Outputs of inference for the Image To Image task
+```
+
+
+### huggingface_hub.ImageToImageParameters
+
+```python
+Additional inference parameters for Image To Image
+```
+
+
+### huggingface_hub.ImageToImageTargetSize
+
+```python
+The size in pixel of the output image.
+```
+
 
 
 
 ## image_to_text
 
-[[autodoc]] huggingface_hub.ImageToTextGenerationParameters
+### huggingface_hub.ImageToTextGenerationParameters
 
-[[autodoc]] huggingface_hub.ImageToTextInput
+```python
+Parametrization of the text generation process
+```
 
-[[autodoc]] huggingface_hub.ImageToTextOutput
 
-[[autodoc]] huggingface_hub.ImageToTextParameters
+### huggingface_hub.ImageToTextInput
+
+```python
+Inputs for Image To Text inference
+```
+
+
+### huggingface_hub.ImageToTextOutput
+
+```python
+Outputs of inference for the Image To Text task
+```
+
+
+### huggingface_hub.ImageToTextParameters
+
+```python
+Additional inference parameters for Image To Text
+```
+
 
 
 
 ## object_detection
 
-[[autodoc]] huggingface_hub.ObjectDetectionBoundingBox
+### huggingface_hub.ObjectDetectionBoundingBox
 
-[[autodoc]] huggingface_hub.ObjectDetectionInput
+```python
+The predicted bounding box. Coordinates are relative to the top left corner of the input
+image.
+```
 
-[[autodoc]] huggingface_hub.ObjectDetectionOutputElement
 
-[[autodoc]] huggingface_hub.ObjectDetectionParameters
+### huggingface_hub.ObjectDetectionInput
+
+```python
+Inputs for Object Detection inference
+```
+
+
+### huggingface_hub.ObjectDetectionOutputElement
+
+```python
+Outputs of inference for the Object Detection task
+```
+
+
+### huggingface_hub.ObjectDetectionParameters
+
+```python
+Additional inference parameters for Object Detection
+```
+
 
 
 
 ## question_answering
 
-[[autodoc]] huggingface_hub.QuestionAnsweringInput
+### huggingface_hub.QuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.QuestionAnsweringInputData
+```python
+Inputs for Question Answering inference
+```
 
-[[autodoc]] huggingface_hub.QuestionAnsweringOutputElement
 
-[[autodoc]] huggingface_hub.QuestionAnsweringParameters
+### huggingface_hub.QuestionAnsweringInputData
+
+```python
+One (context, question) pair to answer
+```
+
+
+### huggingface_hub.QuestionAnsweringOutputElement
+
+```python
+Outputs of inference for the Question Answering task
+```
+
+
+### huggingface_hub.QuestionAnsweringParameters
+
+```python
+Additional inference parameters for Question Answering
+```
+
 
 
 
 ## sentence_similarity
 
-[[autodoc]] huggingface_hub.SentenceSimilarityInput
+### huggingface_hub.SentenceSimilarityInput
 
-[[autodoc]] huggingface_hub.SentenceSimilarityInputData
+```python
+Inputs for Sentence similarity inference
+```
+
+
+### huggingface_hub.SentenceSimilarityInputData
+
+```python
+SentenceSimilarityInputData(sentences: List[str], source_sentence: str)
+```
+
 
 
 
 ## summarization
 
-[[autodoc]] huggingface_hub.SummarizationInput
+### huggingface_hub.SummarizationInput
 
-[[autodoc]] huggingface_hub.SummarizationOutput
+```python
+Inputs for Summarization inference
+```
 
-[[autodoc]] huggingface_hub.SummarizationParameters
+
+### huggingface_hub.SummarizationOutput
+
+```python
+Outputs of inference for the Summarization task
+```
+
+
+### huggingface_hub.SummarizationParameters
+
+```python
+Additional inference parameters for summarization.
+```
+
 
 
 
 ## table_question_answering
 
-[[autodoc]] huggingface_hub.TableQuestionAnsweringInput
+### huggingface_hub.TableQuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.TableQuestionAnsweringInputData
+```python
+Inputs for Table Question Answering inference
+```
 
-[[autodoc]] huggingface_hub.TableQuestionAnsweringOutputElement
 
-[[autodoc]] huggingface_hub.TableQuestionAnsweringParameters
+### huggingface_hub.TableQuestionAnsweringInputData
+
+```python
+One (table, question) pair to answer
+```
+
+
+### huggingface_hub.TableQuestionAnsweringOutputElement
+
+```python
+Outputs of inference for the Table Question Answering task
+```
+
+
+### huggingface_hub.TableQuestionAnsweringParameters
+
+```python
+Additional inference parameters for Table Question Answering
+```
+
 
 
 
 ## text2text_generation
 
-[[autodoc]] huggingface_hub.Text2TextGenerationInput
+### huggingface_hub.Text2TextGenerationInput
 
-[[autodoc]] huggingface_hub.Text2TextGenerationOutput
+```python
+Inputs for Text2text Generation inference
+```
 
-[[autodoc]] huggingface_hub.Text2TextGenerationParameters
+
+### huggingface_hub.Text2TextGenerationOutput
+
+```python
+Outputs of inference for the Text2text Generation task
+```
+
+
+### huggingface_hub.Text2TextGenerationParameters
+
+```python
+Additional inference parameters for Text2text Generation
+```
+
 
 
 
 ## text_classification
 
-[[autodoc]] huggingface_hub.TextClassificationInput
+### huggingface_hub.TextClassificationInput
 
-[[autodoc]] huggingface_hub.TextClassificationOutputElement
+```python
+Inputs for Text Classification inference
+```
 
-[[autodoc]] huggingface_hub.TextClassificationParameters
+
+### huggingface_hub.TextClassificationOutputElement
+
+```python
+Outputs of inference for the Text Classification task
+```
+
+
+### huggingface_hub.TextClassificationParameters
+
+```python
+Additional inference parameters for Text Classification
+```
+
 
 
 
 ## text_generation
 
-[[autodoc]] huggingface_hub.TextGenerationInput
+### huggingface_hub.TextGenerationInput
 
-[[autodoc]] huggingface_hub.TextGenerationInputGenerateParameters
+```python
+Text Generation Input.
+Auto-generated from TGI specs.
+For more details, check out
+https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/scripts/inference-tgi-import.ts.
+```
 
-[[autodoc]] huggingface_hub.TextGenerationInputGrammarType
 
-[[autodoc]] huggingface_hub.TextGenerationOutput
+### huggingface_hub.TextGenerationInputGenerateParameters
 
-[[autodoc]] huggingface_hub.TextGenerationOutputBestOfSequence
+```python
+TextGenerationInputGenerateParameters(adapter_id: Optional[str] = None, best_of: Optional[int] = None, decoder_input_details: Optional[bool] = None, details: Optional[bool] = None, do_sample: Optional[bool] = None, frequency_penalty: Optional[float] = None, grammar: Optional[huggingface_hub.inference._generated.types.text_generation.TextGenerationInputGrammarType] = None, max_new_tokens: Optional[int] = None, repetition_penalty: Optional[float] = None, return_full_text: Optional[bool] = None, seed: Optional[int] = None, stop: Optional[List[str]] = None, temperature: Optional[float] = None, top_k: Optional[int] = None, top_n_tokens: Optional[int] = None, top_p: Optional[float] = None, truncate: Optional[int] = None, typical_p: Optional[float] = None, watermark: Optional[bool] = None)
+```
 
-[[autodoc]] huggingface_hub.TextGenerationOutputDetails
 
-[[autodoc]] huggingface_hub.TextGenerationOutputPrefillToken
+### huggingface_hub.TextGenerationInputGrammarType
 
-[[autodoc]] huggingface_hub.TextGenerationOutputToken
+```python
+TextGenerationInputGrammarType(type: 'TypeEnum', value: Any)
+```
 
-[[autodoc]] huggingface_hub.TextGenerationStreamOutput
 
-[[autodoc]] huggingface_hub.TextGenerationStreamOutputStreamDetails
+### huggingface_hub.TextGenerationOutput
 
-[[autodoc]] huggingface_hub.TextGenerationStreamOutputToken
+```python
+Text Generation Output.
+Auto-generated from TGI specs.
+For more details, check out
+https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/scripts/inference-tgi-import.ts.
+```
+
+
+### huggingface_hub.TextGenerationOutputBestOfSequence
+
+```python
+TextGenerationOutputBestOfSequence(finish_reason: 'TextGenerationOutputFinishReason', generated_text: str, generated_tokens: int, prefill: List[huggingface_hub.inference._generated.types.text_generation.TextGenerationOutputPrefillToken], tokens: List[huggingface_hub.inference._generated.types.text_generation.TextGenerationOutputToken], seed: Optional[int] = None, top_tokens: Optional[List[List[huggingface_hub.inference._generated.types.text_generation.TextGenerationOutputToken]]] = None)
+```
+
+
+### huggingface_hub.TextGenerationOutputDetails
+
+```python
+TextGenerationOutputDetails(finish_reason: 'TextGenerationOutputFinishReason', generated_tokens: int, prefill: List[huggingface_hub.inference._generated.types.text_generation.TextGenerationOutputPrefillToken], tokens: List[huggingface_hub.inference._generated.types.text_generation.TextGenerationOutputToken], best_of_sequences: Optional[List[huggingface_hub.inference._generated.types.text_generation.TextGenerationOutputBestOfSequence]] = None, seed: Optional[int] = None, top_tokens: Optional[List[List[huggingface_hub.inference._generated.types.text_generation.TextGenerationOutputToken]]] = None)
+```
+
+
+### huggingface_hub.TextGenerationOutputPrefillToken
+
+```python
+TextGenerationOutputPrefillToken(id: int, logprob: float, text: str)
+```
+
+
+### huggingface_hub.TextGenerationOutputToken
+
+```python
+TextGenerationOutputToken(id: int, logprob: float, special: bool, text: str)
+```
+
+
+### huggingface_hub.TextGenerationStreamOutput
+
+```python
+Text Generation Stream Output.
+Auto-generated from TGI specs.
+For more details, check out
+https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/scripts/inference-tgi-import.ts.
+```
+
+
+### huggingface_hub.TextGenerationStreamOutputStreamDetails
+
+```python
+TextGenerationStreamOutputStreamDetails(finish_reason: 'TextGenerationOutputFinishReason', generated_tokens: int, input_length: int, seed: Optional[int] = None)
+```
+
+
+### huggingface_hub.TextGenerationStreamOutputToken
+
+```python
+TextGenerationStreamOutputToken(id: int, logprob: float, special: bool, text: str)
+```
+
 
 
 
 ## text_to_audio
 
-[[autodoc]] huggingface_hub.TextToAudioGenerationParameters
+### huggingface_hub.TextToAudioGenerationParameters
 
-[[autodoc]] huggingface_hub.TextToAudioInput
+```python
+Parametrization of the text generation process
+```
 
-[[autodoc]] huggingface_hub.TextToAudioOutput
 
-[[autodoc]] huggingface_hub.TextToAudioParameters
+### huggingface_hub.TextToAudioInput
+
+```python
+Inputs for Text To Audio inference
+```
+
+
+### huggingface_hub.TextToAudioOutput
+
+```python
+Outputs of inference for the Text To Audio task
+```
+
+
+### huggingface_hub.TextToAudioParameters
+
+```python
+Additional inference parameters for Text To Audio
+```
+
 
 
 
 ## text_to_image
 
-[[autodoc]] huggingface_hub.TextToImageInput
+### huggingface_hub.TextToImageInput
 
-[[autodoc]] huggingface_hub.TextToImageOutput
+```python
+Inputs for Text To Image inference
+```
 
-[[autodoc]] huggingface_hub.TextToImageParameters
 
-[[autodoc]] huggingface_hub.TextToImageTargetSize
+### huggingface_hub.TextToImageOutput
+
+```python
+Outputs of inference for the Text To Image task
+```
+
+
+### huggingface_hub.TextToImageParameters
+
+```python
+Additional inference parameters for Text To Image
+```
+
+
+### huggingface_hub.TextToImageTargetSize
+
+```python
+The size in pixel of the output image
+```
+
 
 
 
 ## text_to_speech
 
-[[autodoc]] huggingface_hub.TextToSpeechGenerationParameters
+### huggingface_hub.TextToSpeechGenerationParameters
 
-[[autodoc]] huggingface_hub.TextToSpeechInput
+```python
+Parametrization of the text generation process
+```
 
-[[autodoc]] huggingface_hub.TextToSpeechOutput
 
-[[autodoc]] huggingface_hub.TextToSpeechParameters
+### huggingface_hub.TextToSpeechInput
+
+```python
+Inputs for Text To Speech inference
+```
+
+
+### huggingface_hub.TextToSpeechOutput
+
+```python
+Outputs for Text to Speech inference
+Outputs of inference for the Text To Audio task
+```
+
+
+### huggingface_hub.TextToSpeechParameters
+
+```python
+Additional inference parameters for Text To Speech
+```
+
 
 
 
 ## token_classification
 
-[[autodoc]] huggingface_hub.TokenClassificationInput
+### huggingface_hub.TokenClassificationInput
 
-[[autodoc]] huggingface_hub.TokenClassificationOutputElement
+```python
+Inputs for Token Classification inference
+```
 
-[[autodoc]] huggingface_hub.TokenClassificationParameters
+
+### huggingface_hub.TokenClassificationOutputElement
+
+```python
+Outputs of inference for the Token Classification task
+```
+
+
+### huggingface_hub.TokenClassificationParameters
+
+```python
+Additional inference parameters for Token Classification
+```
+
 
 
 
 ## translation
 
-[[autodoc]] huggingface_hub.TranslationInput
+### huggingface_hub.TranslationInput
 
-[[autodoc]] huggingface_hub.TranslationOutput
+```python
+Inputs for Translation inference
+```
 
-[[autodoc]] huggingface_hub.TranslationParameters
+
+### huggingface_hub.TranslationOutput
+
+```python
+Outputs of inference for the Translation task
+```
+
+
+### huggingface_hub.TranslationParameters
+
+```python
+Additional inference parameters for Translation
+```
+
 
 
 
 ## video_classification
 
-[[autodoc]] huggingface_hub.VideoClassificationInput
+### huggingface_hub.VideoClassificationInput
 
-[[autodoc]] huggingface_hub.VideoClassificationOutputElement
+```python
+Inputs for Video Classification inference
+```
 
-[[autodoc]] huggingface_hub.VideoClassificationParameters
+
+### huggingface_hub.VideoClassificationOutputElement
+
+```python
+Outputs of inference for the Video Classification task
+```
+
+
+### huggingface_hub.VideoClassificationParameters
+
+```python
+Additional inference parameters for Video Classification
+```
+
 
 
 
 ## visual_question_answering
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringInput
+### huggingface_hub.VisualQuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringInputData
+```python
+Inputs for Visual Question Answering inference
+```
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringOutputElement
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringParameters
+### huggingface_hub.VisualQuestionAnsweringInputData
+
+```python
+One (image, question) pair to answer
+```
+
+
+### huggingface_hub.VisualQuestionAnsweringOutputElement
+
+```python
+Outputs of inference for the Visual Question Answering task
+```
+
+
+### huggingface_hub.VisualQuestionAnsweringParameters
+
+```python
+Additional inference parameters for Visual Question Answering
+```
+
 
 
 
 ## zero_shot_classification
 
-[[autodoc]] huggingface_hub.ZeroShotClassificationInput
+### huggingface_hub.ZeroShotClassificationInput
 
-[[autodoc]] huggingface_hub.ZeroShotClassificationOutputElement
+```python
+Inputs for Zero Shot Classification inference
+```
 
-[[autodoc]] huggingface_hub.ZeroShotClassificationParameters
+
+### huggingface_hub.ZeroShotClassificationOutputElement
+
+```python
+Outputs of inference for the Zero Shot Classification task
+```
+
+
+### huggingface_hub.ZeroShotClassificationParameters
+
+```python
+Additional inference parameters for Zero Shot Classification
+```
+
 
 
 
 ## zero_shot_image_classification
 
-[[autodoc]] huggingface_hub.ZeroShotImageClassificationInput
+### huggingface_hub.ZeroShotImageClassificationInput
 
-[[autodoc]] huggingface_hub.ZeroShotImageClassificationOutputElement
+```python
+Inputs for Zero Shot Image Classification inference
+```
 
-[[autodoc]] huggingface_hub.ZeroShotImageClassificationParameters
+
+### huggingface_hub.ZeroShotImageClassificationOutputElement
+
+```python
+Outputs of inference for the Zero Shot Image Classification task
+```
+
+
+### huggingface_hub.ZeroShotImageClassificationParameters
+
+```python
+Additional inference parameters for Zero Shot Image Classification
+```
+
 
 
 
 ## zero_shot_object_detection
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionBoundingBox
+### huggingface_hub.ZeroShotObjectDetectionBoundingBox
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionInput
+```python
+The predicted bounding box. Coordinates are relative to the top left corner of the input
+image.
+```
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionOutputElement
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionParameters
+### huggingface_hub.ZeroShotObjectDetectionInput
+
+```python
+Inputs for Zero Shot Object Detection inference
+```
+
+
+### huggingface_hub.ZeroShotObjectDetectionOutputElement
+
+```python
+Outputs of inference for the Zero Shot Object Detection task
+```
+
+
+### huggingface_hub.ZeroShotObjectDetectionParameters
+
+```python
+Additional inference parameters for Zero Shot Object Detection
+```
+

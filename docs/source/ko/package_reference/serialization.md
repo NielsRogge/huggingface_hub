@@ -12,20 +12,159 @@ rendered properly in your Markdown viewer.
 
 ### split_tf_state_dict_into_shards[[huggingface_hub.split_tf_state_dict_into_shards]]
 
-[[autodoc]] huggingface_hub.split_tf_state_dict_into_shards
+### huggingface_hub.split_tf_state_dict_into_shards
+
+```python
+Split a model state dictionary in shards so that each shard is smaller than a given size.
+
+The shards are determined by iterating through the `state_dict` in the order of its keys. There is no optimization
+made to make each shard as close as possible to the maximum size passed. For example, if the limit is 10GB and we
+have tensors of sizes [6GB, 6GB, 2GB, 6GB, 2GB, 2GB] they will get sharded as [6GB], [6+2GB], [6+2+2GB] and not
+[6+2+2GB], [6+2GB], [6GB].
+
+<Tip warning={true}>
+
+If one of the model's tensor is bigger than `max_shard_size`, it will end up in its own shard which will have a
+size greater than `max_shard_size`.
+
+</Tip>
+
+Args:
+    state_dict (`Dict[str, Tensor]`):
+        The state dictionary to save.
+    filename_pattern (`str`, *optional*):
+        The pattern to generate the files names in which the model will be saved. Pattern must be a string that
+        can be formatted with `filename_pattern.format(suffix=...)` and must contain the keyword `suffix`
+        Defaults to `"tf_model{suffix}.h5"`.
+    max_shard_size (`int` or `str`, *optional*):
+        The maximum size of each shard, in bytes. Defaults to 5GB.
+
+Returns:
+    [`StateDictSplit`]: A `StateDictSplit` object containing the shards and the index to retrieve them.
+```
+
 
 ### split_torch_state_dict_into_shards[[huggingface_hub.split_torch_state_dict_into_shards]]
 
-[[autodoc]] huggingface_hub.split_torch_state_dict_into_shards
+### huggingface_hub.split_torch_state_dict_into_shards
+
+```python
+Split a model state dictionary in shards so that each shard is smaller than a given size.
+
+The shards are determined by iterating through the `state_dict` in the order of its keys. There is no optimization
+made to make each shard as close as possible to the maximum size passed. For example, if the limit is 10GB and we
+have tensors of sizes [6GB, 6GB, 2GB, 6GB, 2GB, 2GB] they will get sharded as [6GB], [6+2GB], [6+2+2GB] and not
+[6+2+2GB], [6+2GB], [6GB].
+
+
+<Tip>
+
+To save a model state dictionary to the disk, see [`save_torch_state_dict`]. This helper uses
+`split_torch_state_dict_into_shards` under the hood.
+
+</Tip>
+
+<Tip warning={true}>
+
+If one of the model's tensor is bigger than `max_shard_size`, it will end up in its own shard which will have a
+size greater than `max_shard_size`.
+
+</Tip>
+
+Args:
+    state_dict (`Dict[str, torch.Tensor]`):
+        The state dictionary to save.
+    filename_pattern (`str`, *optional*):
+        The pattern to generate the files names in which the model will be saved. Pattern must be a string that
+        can be formatted with `filename_pattern.format(suffix=...)` and must contain the keyword `suffix`
+        Defaults to `"model{suffix}.safetensors"`.
+    max_shard_size (`int` or `str`, *optional*):
+        The maximum size of each shard, in bytes. Defaults to 5GB.
+
+Returns:
+    [`StateDictSplit`]: A `StateDictSplit` object containing the shards and the index to retrieve them.
+
+Example:
+```py
+>>> import json
+>>> import os
+>>> from safetensors.torch import save_file as safe_save_file
+>>> from huggingface_hub import split_torch_state_dict_into_shards
+
+>>> def save_state_dict(state_dict: Dict[str, torch.Tensor], save_directory: str):
+...     state_dict_split = split_torch_state_dict_into_shards(state_dict)
+...     for filename, tensors in state_dict_split.filename_to_tensors.items():
+...         shard = {tensor: state_dict[tensor] for tensor in tensors}
+...         safe_save_file(
+...             shard,
+...             os.path.join(save_directory, filename),
+...             metadata={"format": "pt"},
+...         )
+...     if state_dict_split.is_sharded:
+...         index = {
+...             "metadata": state_dict_split.metadata,
+...             "weight_map": state_dict_split.tensor_to_filename,
+...         }
+...         with open(os.path.join(save_directory, "model.safetensors.index.json"), "w") as f:
+...             f.write(json.dumps(index, indent=2))
+```
+```
+
 
 ### split_state_dict_into_shards_factory[[huggingface_hub.split_state_dict_into_shards_factory]]
 
 이것은 각 프레임워크별 헬퍼가 파생되는 기본 틀입니다. 실제로는 아직 지원되지 않는 프레임워크에 맞게 조정할 필요가 있는 경우가 아니면 이 틀을 직접 사용할 것으로 예상되지 않습니다. 그런 경우가 있다면, `huggingface_hub` 리포지토리에 [새로운 이슈를 개설](https://github.com/huggingface/huggingface_hub/issues/new) 하여 알려주세요.
 
-[[autodoc]] huggingface_hub.split_state_dict_into_shards_factory
+### huggingface_hub.split_state_dict_into_shards_factory
+
+```python
+Split a model state dictionary in shards so that each shard is smaller than a given size.
+
+The shards are determined by iterating through the `state_dict` in the order of its keys. There is no optimization
+made to make each shard as close as possible to the maximum size passed. For example, if the limit is 10GB and we
+have tensors of sizes [6GB, 6GB, 2GB, 6GB, 2GB, 2GB] they will get sharded as [6GB], [6+2GB], [6+2+2GB] and not
+[6+2+2GB], [6+2GB], [6GB].
+
+<Tip warning={true}>
+
+If one of the model's tensor is bigger than `max_shard_size`, it will end up in its own shard which will have a
+size greater than `max_shard_size`.
+
+</Tip>
+
+Args:
+    state_dict (`Dict[str, Tensor]`):
+        The state dictionary to save.
+    get_storage_size (`Callable[[Tensor], int]`):
+        A function that returns the size of a tensor when saved on disk in bytes.
+    get_storage_id (`Callable[[Tensor], Optional[Any]]`, *optional*):
+        A function that returns a unique identifier to a tensor storage. Multiple different tensors can share the
+        same underlying storage. This identifier is guaranteed to be unique and constant for this tensor's storage
+        during its lifetime. Two tensor storages with non-overlapping lifetimes may have the same id.
+    filename_pattern (`str`, *optional*):
+        The pattern to generate the files names in which the model will be saved. Pattern must be a string that
+        can be formatted with `filename_pattern.format(suffix=...)` and must contain the keyword `suffix`
+    max_shard_size (`int` or `str`, *optional*):
+        The maximum size of each shard, in bytes. Defaults to 5GB.
+
+Returns:
+    [`StateDictSplit`]: A `StateDictSplit` object containing the shards and the index to retrieve them.
+```
+
 
 ## 도우미
 
 ### get_torch_storage_id[[huggingface_hub.get_torch_storage_id]]
 
-[[autodoc]] huggingface_hub.get_torch_storage_id
+### huggingface_hub.get_torch_storage_id
+
+```python
+Return unique identifier to a tensor storage.
+
+Multiple different tensors can share the same underlying storage. This identifier is
+guaranteed to be unique and constant for this tensor's storage during its lifetime. Two tensor storages with
+non-overlapping lifetimes may have the same id.
+In the case of meta tensors, we return None since we can't tell if they share the same storage.
+
+Taken from https://github.com/huggingface/transformers/blob/1ecf5f7c982d761b4daaa96719d162c324187c64/src/transformers/pytorch_utils.py#L278.
+```
