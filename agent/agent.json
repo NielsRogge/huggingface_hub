@@ -1,17 +1,17 @@
 {
 	"model": "Qwen/Qwen2.5-72B-Instruct",
-	"provider": "nebius",
+    "provider": "nebius",
     "inputs": [
         {
             "type": "promptString",
-            "id": "hf-token",
-            "description": "Your Hugging Face Token",
+            "id": "github-read-pat",
+            "description": "Github Personal Access Token (read-only)",
             "password": true
         },
         {
             "type": "promptString",
-            "id": "github-personal-access-token",
-            "description": "Github Personal Access Token",
+            "id": "hf-token",
+            "description": "Your Hugging Face Token",
             "password": true
         }
     ],
@@ -19,38 +19,27 @@
 		{
             "type": "stdio",
             "config": {
-                "command": "docker",
-                "args": [
+              "command": "docker",
+              "args": [
                 "run",
                 "-i",
                 "--rm",
                 "-e",
                 "GITHUB_PERSONAL_ACCESS_TOKEN",
                 "-e",
-                "GITHUB_TOOLSETS=repos,issues",
-                "-e",
-                "DEBUG=1",
+                "GITHUB_TOOLSETS=repos",
                 "ghcr.io/github/github-mcp-server"
-                ],
-                "env": {
-                    "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github-personal-access-token}"
-                }
+              ],
+              "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github-read-pat}"
+              }
             }
-        },
+          },
         {
 			"type": "stdio",
 			"config": {
 				"command": "npx",
 				"args": ["@playwright/mcp@latest"]
-			}
-		},
-		{
-			"type": "stdio",
-			"config": {
-				"command": "docker",
-                "args": ["run", "-i", "--rm", "mcp/pdf-reader"],
-                "disabled": false,
-                "autoApprove": []
 			}
 		},
         {
@@ -63,6 +52,13 @@
             },
             "env": {
                 "HF_TOKEN": "${input:hf-token}"
+            }
+        },
+        {
+            "type": "stdio",
+            "config": {
+                "command": "docker",
+                "args": ["run", "-i", "--rm", "mcp/pdf-reader"]
             }
         }
 	]

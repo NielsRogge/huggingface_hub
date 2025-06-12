@@ -93,16 +93,15 @@ class MCPClient:
         if model is None and base_url is None:
             raise ValueError("At least one of `model` or `base_url` should be set in `MCPClient`.")
         self.payload_model = model
-        self.client = AsyncOpenAI(
-            api_key=os.environ.get("GEMINI_API_KEY"),
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-        )
-        # self.client = AsyncInferenceClient(
-        #     model=None if base_url is not None else model,
-        #     provider=provider,
-        #     api_key=api_key,
-        #     base_url=base_url,
+        # self.client = AsyncOpenAI(
+        #     api_key=os.environ.get("OPENAI_API_KEY"),
         # )
+        self.client = AsyncInferenceClient(
+            model=None if base_url is not None else model,
+            provider=provider,
+            api_key=api_key,
+            base_url=base_url,
+        )
 
     async def __aenter__(self):
         """Enter the context manager"""
@@ -264,6 +263,17 @@ class MCPClient:
             tools = [*exit_loop_tools, *self.available_tools]
 
         # Create the streaming request
+
+        print("Number of messages: ", len(messages))
+
+        for message in messages:
+            print("Role:", message["role"])
+            if message["role"] == "system":
+                print("Content: ", message["content"][:50])
+            else:
+                print("Content: ", message["content"])
+            print("--------------------------------")
+
         response = await self.client.chat.completions.create(
             model=self.payload_model,
             messages=messages,
@@ -310,7 +320,20 @@ class MCPClient:
             # Yield each chunk to caller
             yield chunk
 
-        if message["content"]:
+        # Add the assistant message with tool calls (if any) to messages
+        if message["content"] or final_tool_calls:
+            # Convert final_tool_calls to the format expected by OpenAI
+            if final_tool_calls:
+                message["tool_calls"] = []
+                for tool_call in final_tool_calls.values():
+                    message["tool_calls"].append({
+                        "id": tool_call.id,
+                        "type": "function",
+                        "function": {
+                            "name": tool_call.function.name,
+                            "arguments": tool_call.function.arguments or "{}"
+                        }
+                    })
             messages.append(message)
 
         # Process tool calls one by one
