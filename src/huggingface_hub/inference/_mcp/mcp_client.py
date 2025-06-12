@@ -3,12 +3,14 @@ import logging
 from contextlib import AsyncExitStack
 from datetime import timedelta
 from pathlib import Path
+import os
 from typing import TYPE_CHECKING, Any, AsyncIterable, Dict, List, Literal, Optional, Union, overload
 
 from typing_extensions import NotRequired, TypeAlias, TypedDict, Unpack
 
 from ...utils._runtime import get_hf_hub_version
 from .._generated._async_client import AsyncInferenceClient
+from openai import AsyncOpenAI
 from .._generated.types import (
     ChatCompletionInputMessage,
     ChatCompletionInputTool,
@@ -91,12 +93,16 @@ class MCPClient:
         if model is None and base_url is None:
             raise ValueError("At least one of `model` or `base_url` should be set in `MCPClient`.")
         self.payload_model = model
-        self.client = AsyncInferenceClient(
-            model=None if base_url is not None else model,
-            provider=provider,
-            api_key=api_key,
-            base_url=base_url,
+        self.client = AsyncOpenAI(
+            api_key=os.environ.get("GEMINI_API_KEY"),
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
         )
+        # self.client = AsyncInferenceClient(
+        #     model=None if base_url is not None else model,
+        #     provider=provider,
+        #     api_key=api_key,
+        #     base_url=base_url,
+        # )
 
     async def __aenter__(self):
         """Enter the context manager"""
