@@ -1,0 +1,69 @@
+{
+	"model": "Qwen/Qwen2.5-72B-Instruct",
+	"provider": "nebius",
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "hf-token",
+            "description": "Your Hugging Face Token",
+            "password": true
+        },
+        {
+            "type": "promptString",
+            "id": "github-personal-access-token",
+            "description": "Github Personal Access Token",
+            "password": true
+        }
+    ],
+	"servers": [
+		{
+            "type": "stdio",
+            "config": {
+                "command": "docker",
+                "args": [
+                "run",
+                "-i",
+                "--rm",
+                "-e",
+                "GITHUB_PERSONAL_ACCESS_TOKEN",
+                "-e",
+                "GITHUB_TOOLSETS=repos,issues",
+                "-e",
+                "DEBUG=1",
+                "ghcr.io/github/github-mcp-server"
+                ],
+                "env": {
+                    "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github-personal-access-token}"
+                }
+            }
+        },
+        {
+			"type": "stdio",
+			"config": {
+				"command": "npx",
+				"args": ["@playwright/mcp@latest"]
+			}
+		},
+		{
+			"type": "stdio",
+			"config": {
+				"command": "docker",
+                "args": ["run", "-i", "--rm", "mcp/pdf-reader"],
+                "disabled": false,
+                "autoApprove": []
+			}
+		},
+        {
+            "type": "http",
+            "config": {
+                "url": "https://huggingface.co/mcp",
+                "headers": {
+                    "Authorization": "${HF_TOKEN}"
+                }
+            },
+            "env": {
+                "HF_TOKEN": "${input:hf-token}"
+            }
+        }
+	]
+}
